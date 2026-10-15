@@ -119,6 +119,7 @@ const messages = {
       mensagemPlaceholder: 'Sua mensagem',
       carregando: 'Carregando',
       mensagemEnviada: 'Sua mensagem foi enviada, agradecemos!',
+      erroEnvio: 'Não foi possível enviar sua mensagem. Tente novamente.',
       enviarBotao: 'Enviar mensagem',
     },
     footer: {
@@ -254,6 +255,7 @@ const messages = {
       mensagemPlaceholder: 'Your message',
       carregando: 'Loading',
       mensagemEnviada: 'Your message has been sent, thank you!',
+      erroEnvio: 'Your message could not be sent. Please try again.',
       enviarBotao: 'Send message',
     },
     footer: {

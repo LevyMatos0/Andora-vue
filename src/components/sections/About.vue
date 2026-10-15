@@ -15,7 +15,7 @@
           <div class="col-lg-6" data-aos="zoom-out" data-aos-delay="200">
             <div class="image-wrapper">
               <div class="image-box">
-                <img src="../../assets/img/icone/Voando em direção à (2).png" class="img-fluid" alt="About Image" loading="lazy">
+                <img :src="uploadUrl(content.site?.sobre?.imagem) || defaultImage" class="img-fluid" :alt="content.site?.sobre?.titulo ?? $t('about.titulo')" loading="lazy">
               </div>
             </div>
           </div>
@@ -23,12 +23,12 @@
           <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
             <div class="content">
               <div class="section-header">
-                <h2>{{ $t('about.headline') }}</h2>
+                <h2>{{ content.site?.sobre?.titulo ?? $t('about.headline') }}</h2>
               </div>
 
-              <p class="highlight-text"></p>
+              <p v-if="content.site?.sobre?.texto" class="highlight-text panel-text">{{ content.site.sobre.texto }}</p>
 
-              <div class="features-list">
+              <div v-if="!content.site?.sobre?.texto" class="features-list">
                 <div class="feature-item" data-aos="zoom-in" data-aos-delay="300">
                   <div class="icon-box">
                     <i class="bi bi-check2-circle"></i>
@@ -72,3 +72,14 @@
 
     </section><!-- /About Section -->
 </template>
+
+<script setup>
+import { useSiteContent } from '../../composables/useSiteContent'
+import { uploadUrl } from '../../services/api'
+import defaultImage from '../../assets/img/icone/Voando em direção à (2).png'
+const content = useSiteContent()
+</script>
+
+<style scoped>
+.panel-text { white-space: pre-line; }
+</style>

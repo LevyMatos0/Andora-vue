@@ -13,45 +13,20 @@
 
         <div class="services-container">
           <div class="row g-4">
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <div v-for="service in services" :key="service.id" class="col-lg-6" data-aos="fade-up">
               <div class="service-item">
                 <div class="service-icon">
-                  <i class="bi bi-code-slash"></i>
+                  <img v-if="service.imagem" :src="uploadUrl(service.imagem)" :alt="service.titulo">
+                  <i v-else :class="service.icone || 'bi bi-code-slash'"></i>
                 </div>
                 <div class="service-content">
-                  <h3 class="service-title">{{ $t('services.servico1Titulo') }}</h3>
-                  <p class="service-text">{{ $t('services.servico1Descricao') }}</p>
-                  <a href="#" class="service-link">
-                    {{ $t('services.servico1Link') }}
-                    <i class="bi bi-arrow-right"></i>
-                  </a>
+                  <h3 class="service-title">{{ service.titulo }}</h3>
+                  <p class="service-text panel-text">{{ service.descricao }}</p>
+                  <details v-if="service.informacoes" class="service-details">
+                    <summary class="service-link">{{ $t('services.servico1Link') }}</summary>
+                    <p class="panel-text">{{ service.informacoes }}</p>
+                  </details>
                 </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-              <div class="service-item">
-                <div class="service-icon">
-                  <i class="bi bi-bar-chart"></i>
-                </div>
-                <div class="service-content">
-                  <h3 class="service-title">{{ $t('services.servico2Titulo') }}</h3>
-                  <p class="service-text">{{ $t('services.servico2Descricao') }}</p>
-                  <a href="#" class="service-link">
-                    {{ $t('services.servico2Link') }}
-                    <i class="bi bi-arrow-right"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
-              <div class="service-item">
-              </div>
-            </div>
-
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
-              <div class="service-item">
               </div>
             </div>
           </div>
@@ -84,3 +59,21 @@
 
     </section><!-- /Services Section -->
 </template>
+
+<script setup>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useSiteContent } from '../../composables/useSiteContent'
+import { uploadUrl } from '../../services/api'
+const content = useSiteContent()
+const { t } = useI18n()
+const services = computed(() => content.servicos === null
+  ? [1, 2].map(i => ({ id: i, titulo: t(`services.servico${i}Titulo`), descricao: t(`services.servico${i}Descricao`), icone: i === 1 ? 'bi bi-code-slash' : 'bi bi-bar-chart' }))
+  : content.servicos.map(item => ({ id: item.srv_codigo, titulo: item.srv_titulo, descricao: item.srv_descricao, informacoes: item.srv_informacoes, imagem: item.srv_icone })))
+</script>
+
+<style scoped>
+.service-icon img { width: 48px; height: 48px; object-fit: contain; }
+.panel-text { white-space: pre-line; }
+.service-details summary { cursor: pointer; }
+</style>

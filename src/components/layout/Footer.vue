@@ -8,8 +8,8 @@
           <i class="bi bi-geo-alt icon"></i>
           <div class="address">
             <h4>{{ $t('footer.endereco') }}</h4>
-            <p>{{ $t('footer.enderecoRua') }}</p>
-            <p>{{ $t('footer.enderecoCidade') }}</p>
+            <p>{{ content.site?.contato?.endereco ?? $t('footer.enderecoRua') }}</p>
+            <p v-if="content.site?.contato?.endereco == null">{{ $t('footer.enderecoCidade') }}</p>
             <p></p>
           </div>
         </div>
@@ -19,8 +19,8 @@
           <div>
             <h4>{{ $t('footer.contato') }}</h4>
             <p>
-              <strong>{{ $t('footer.telefoneLabel') }}</strong> <span>(19) 97815-2812</span><br>
-              <strong>{{ $t('footer.emailLabel') }}</strong> <span>contato@andoradev.com</span><br>
+              <strong>{{ $t('footer.telefoneLabel') }}</strong> <span>{{ content.site?.contato?.telefone ?? '(19) 97815-2812' }}</span><br>
+              <strong>{{ $t('footer.emailLabel') }}</strong> <span>{{ content.site?.contato?.email ?? 'contato@andoradev.com' }}</span><br>
             </p>
           </div>
         </div>
@@ -72,3 +72,8 @@
 
   </footer>
 </template>
+
+<script setup>
+import { useSiteContent } from '../../composables/useSiteContent'
+const content = useSiteContent()
+</script>

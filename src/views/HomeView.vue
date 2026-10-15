@@ -13,6 +13,8 @@
 </template>
 
 <script setup>
+import { onMounted, onUnmounted } from 'vue'
+import { refreshSiteContent } from '../composables/useSiteContent'
 import Navbar from '../components/layout/Navbar.vue'
 import Footer from '../components/layout/Footer.vue'
 
@@ -23,4 +25,10 @@ import Portfolio from '../components/sections/Portfolio.vue'
 import Team from '../components/sections/Team.vue'
 import FAQ from '../components/sections/FAQ.vue'
 import Contact from '../components/sections/Contact.vue'
+
+onMounted(() => {
+  refreshSiteContent()
+  window.addEventListener('focus', refreshSiteContent)
+})
+onUnmounted(() => window.removeEventListener('focus', refreshSiteContent))
 </script>
