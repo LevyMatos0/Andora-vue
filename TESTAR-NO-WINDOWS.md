@@ -28,12 +28,15 @@ Caso precise iniciá-la:
 
    ```bat
    npm.cmd ci
+   if not exist uploads mkdir uploads
    node src/server.js
    ```
 
 5. Deixe essa janela aberta. A API usa a porta 3000 por padrão.
 
 O arquivo `.env` da API deve apontar para o MySQL de teste que você já utiliza. Se ele não existir, copie `.env.example` para `.env` e ajuste `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME` e `JWT_SECRET` localmente. Não compartilhe esse arquivo nem as senhas. Se já existe, preserve suas configurações.
+
+A pasta `uploads` deve ficar dentro de `andora-back`, ao lado de `package.json`. O comando acima cria a pasta apenas se ela não existir. Sem ela, cadastrar um membro com foto pode falhar com `ENOENT`. Isso não altera registros nem a configuração do banco.
 
 Abra http://localhost:3000/api/servicos no navegador. Deve aparecer uma lista JSON (pode ser `[]`). Se aparecer erro 500, confira a conexão da API com o MySQL e se as tabelas existem. Não reimporte o SQL por cima de dados existentes: o modelo enviado contém comandos que apagam tabelas.
 
@@ -69,6 +72,16 @@ Troque o endereço pelo da sua API, sem `/api` no final. No Bloco de Notas, use 
 5. Envie uma mensagem no formulário do site e consulte-a no painel.
 
 O painel e o site devem usar a mesma API e o mesmo banco. O site não usa diretamente o banco de teste criado na nuvem. Se a API não puder ser carregada, o site mantém o conteúdo original na primeira carga; ver esse conteúdo sozinho não confirma a integração.
+
+### Se os membros não aparecem
+
+Com a API funcionando, abra `http://localhost:3000/api/team` no navegador. Se usa outra API, troque o endereço pelo mesmo usado pelo painel e pelo site.
+
+- Uma lista com membros confirma que a API os encontrou. Para aparecer no site, cada membro deve estar ativo (`tms_status` igual a `1`).
+- Uma lista vazia (`[]`) significa que essa API não encontrou membros no banco configurado. Confira se é o mesmo banco utilizado pelo painel antes de recadastrar ou importar qualquer SQL.
+- Uma mensagem de erro requer diagnóstico da API/MySQL. Copie o erro do navegador e da janela que executa `node src/server.js`, sem compartilhar senhas.
+- Se o erro de cadastro contém `ENOENT` e `uploads`, crie a pasta como no passo 3.
+- Se contém `Unexpected field`, a API aceita a foto no campo de formulário `foto`; informe o erro para conferir a integração do painel antes de alterar o código.
 
 Para encerrar, pressione **Ctrl+C** em cada janela que iniciou. O painel e o backend não foram alterados por esta integração. As mudanças estão em uma branch separada e não publicam automaticamente o site em produção.
 
