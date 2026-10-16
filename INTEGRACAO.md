@@ -28,13 +28,15 @@ npm run dev -- --host 127.0.0.1
 
 `--legacy-peer-deps` é necessário com o lockfile atual: `npm ci` comum acusa os peers `@emnapi/core` e `@emnapi/runtime` ausentes. Não foi preciso modificar dependências nem o lockfile.
 
-Em desenvolvimento a API padrão é `http://localhost:3000`. Para usar outra API, defina em `.env.local` (ignorado pelo Git):
+Em desenvolvimento, abra o site em `http://localhost:5174` e mantenha o painel em `http://localhost:5173`. O Vite encaminha as requisições `/api` e `/uploads` do site para `http://localhost:3000`, evitando conflito de CORS entre os dois frontends. `strictPort` impede que o site migre silenciosamente para outra porta. Se o painel estiver em 5174, pare ambos os frontends, inicie primeiro o painel em 5173 e depois o site em 5174.
+
+Para usar outra API, defina em `.env.local` (ignorado pelo Git):
 
 ```dotenv
 VITE_API_BASE_URL=https://api.seu-dominio.com
 ```
 
-Use a URL raiz do backend, sem `/api` no final. Essa variável é pública e não deve conter credenciais. O navegador nunca se conecta diretamente ao MySQL.
+Use a URL raiz do backend, sem `/api` no final. Em desenvolvimento, essa variável configura o destino do proxy do Vite; em produção, configura a URL pública usada pelo navegador. Reinicie o Vite após alterar o arquivo. Essa variável é pública e não deve conter credenciais. O navegador nunca se conecta diretamente ao MySQL.
 
 ## Build e GitHub Pages
 

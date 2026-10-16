@@ -1,8 +1,9 @@
 // Public backend URL only. Database credentials never belong in the frontend.
 const configuredBase = import.meta.env?.VITE_API_BASE_URL
-export const apiBase = (configuredBase || (import.meta.env?.DEV
-  ? 'http://localhost:3000'
-  : globalThis.location?.origin || 'http://localhost:3000')).replace(/\/+$/, '')
+// Vite forwards local requests to the backend so the panel can keep port 5173.
+export const apiBase = (import.meta.env?.DEV
+  ? ''
+  : configuredBase || globalThis.location?.origin || 'http://localhost:3000').replace(/\/+$/, '')
 
 export async function apiRequest(path, options = {}) {
   const response = await fetch(`${apiBase}/api/${path}`, {

@@ -51,9 +51,9 @@ Abra http://localhost:3000/api/servicos no navegador. Deve aparecer uma lista JS
    npm.cmd run dev
    ```
 
-4. Deixe a janela aberta e acesse **http://localhost:5173** no navegador. Se o terminal indicar outra porta porque 5173 está ocupada, feche a outra instância do site e tente novamente: o CORS atual da API permite `http://localhost:5173`.
+4. Deixe a janela aberta e acesse **http://localhost:5174** no navegador. O site usa a porta 5174 e encaminha as chamadas à API pelo servidor de desenvolvimento. A porta **5173 fica reservada ao painel**, pois ela já é permitida pelo CORS da API.
 
-Use `localhost`, não `127.0.0.1`, no navegador para corresponder ao CORS da API.
+Se o **painel** estiver aberto em `http://localhost:5174`, feche os dois servidores de frontend com Ctrl+C. Inicie primeiro o painel, confira que ele abriu em `http://localhost:5173` e só então inicie este site, que abrirá em `http://localhost:5174`. Mantenha a API funcionando em `http://localhost:3000`. Se a porta 5174 estiver ocupada, o site avisa e para, em vez de mudar silenciosamente para outra porta. Não é necessário desativar a segurança do navegador nem alterar o backend.
 
 Se a API do seu painel usa um endereço diferente de `http://localhost:3000`, crie `.env.local` na raiz do site, ao lado de `package.json`, com:
 
@@ -61,7 +61,7 @@ Se a API do seu painel usa um endereço diferente de `http://localhost:3000`, cr
 VITE_API_BASE_URL=http://localhost:3000
 ```
 
-Troque o endereço pelo da sua API, sem `/api` no final. No Bloco de Notas, use **Salvar como → Tipo: Todos os arquivos** para não criar `.env.local.txt`. Depois reinicie o site: pressione Ctrl+C na janela dele e execute `npm.cmd run dev` novamente. Essa configuração é pública e não deve conter senhas.
+Troque o endereço pelo da sua API, sem `/api` no final. Em desenvolvimento, essa variável configura o destino do encaminhamento de `/api` e `/uploads`; o navegador continua falando com o servidor do site na porta 5174. No Bloco de Notas, use **Salvar como → Tipo: Todos os arquivos** para não criar `.env.local.txt`. Depois reinicie o site: pressione Ctrl+C na janela dele e execute `npm.cmd run dev` novamente. Essa configuração é pública e não deve conter senhas.
 
 ## 5. Conferir os cadastros
 
