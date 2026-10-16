@@ -9,7 +9,7 @@
       </div><!-- End Section Title -->
 
       <div class="container">
-        <div class="contact-wrapper">
+        <div class="contact-wrapper" :class="{ 'has-map': mapUrl }">
           <div class="contact-info-panel">
             <div class="contact-info-header">
               <h3>{{ $t('contact.infoTitulo') }}</h3>
@@ -70,7 +70,7 @@
           </div>
 
           <div class="contact-form-panel">
-            <div class="map-container">
+            <div v-if="mapUrl" class="map-container">
               <iframe :src="mapUrl" title="Localização Andora" width="100%" height="100%" style="border:0;"  loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
 
@@ -121,8 +121,11 @@ import { useSiteContent } from '../../composables/useSiteContent'
 import { apiRequest, safeHttpUrl } from '../../services/api'
 const content = useSiteContent()
 const defaultMap = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3679.3441844291274!2d-47.35159662602098!3d-22.75260477936391!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c89bde5bd26a4b%3A0x73aa44217bc4cce7!2sCol%C3%A9gio%20Politec!5e0!3m2!1sen!2sbr!4v1774652777448!5m2!1sen!2sbr'
-const mapUrl = computed(() => content.site?.contato?.mapa == null
-  ? defaultMap : safeHttpUrl(content.site.contato.mapa))
+const mapUrl = computed(() => {
+  const contact = content.site?.contato
+  if (!contact || Object.keys(contact).length === 0) return defaultMap
+  return safeHttpUrl(contact.mapa)
+})
 const form = reactive({ nome: '', email: '', assunto: '', conteudo: '' })
 const sending = ref(false)
 const sent = ref(false)
