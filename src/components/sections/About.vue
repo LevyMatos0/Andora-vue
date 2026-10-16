@@ -61,8 +61,8 @@
               </div>
 
               <div class="cta-buttons">
-                <a href="#" class="btn-learn-more">{{ $t('about.saibaMais') }}</a>
-                <a href="#" class="btn-get-started">{{ $t('about.contato') }}</a>
+                <RouterLink :to="{ path: '/', hash: '#services' }" class="btn-learn-more">{{ $t('about.saibaMais') }}</RouterLink>
+                <RouterLink :to="{ path: '/', hash: '#contact' }" class="btn-get-started">{{ $t('about.contato') }}</RouterLink>
               </div>
             </div>
           </div>

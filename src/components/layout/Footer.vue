@@ -77,3 +77,8 @@
 import { useSiteContent } from '../../composables/useSiteContent'
 const content = useSiteContent()
 </script>
+
+<style scoped>
+.footer .d-flex > div { min-width: 0; }
+.footer p { overflow-wrap: anywhere; }
+</style>

@@ -1,5 +1,5 @@
 <template>
- <!-- Contact Section --><a href="#contact"></a>
+ <!-- Contact Section -->
     <section id="contact" class="contact section">
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">

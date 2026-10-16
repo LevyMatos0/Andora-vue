@@ -4,6 +4,9 @@ const messages = {
   pt: {
     nav: {
       inicio: 'Início',
+      menu: 'Navegação principal',
+      abrirMenu: 'Abrir menu',
+      fecharMenu: 'Fechar menu',
       sobre: 'Sobre',
       servicos: 'Serviços',
       projetos: 'Projetos',
@@ -140,6 +143,9 @@ const messages = {
   en: {
     nav: {
       inicio: 'Home',
+      menu: 'Main navigation',
+      abrirMenu: 'Open menu',
+      fecharMenu: 'Close menu',
       sobre: 'About',
       servicos: 'Services',
       projetos: 'Projects',

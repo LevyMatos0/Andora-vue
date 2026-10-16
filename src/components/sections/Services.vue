@@ -46,7 +46,7 @@
                     <div class="cta-content text-lg-start" data-aos="fade-left" data-aos-delay="300">
                       <h3>{{ $t('services.ctaTitulo') }}</h3>
                       <p>{{ $t('services.ctaDescricao') }}</p>
-                      <a href="#contact" class="primary-btn">{{ $t('services.ctaBotao') }}</a>
+                      <RouterLink :to="{ path: '/', hash: '#contact' }" class="primary-btn">{{ $t('services.ctaBotao') }}</RouterLink>
                     </div>
                   </div>
                 </div>

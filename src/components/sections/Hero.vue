@@ -12,7 +12,7 @@
               <p class="panel-text">{{ content.site?.hero?.descricao ?? $t('hero.descricao') }}</p>
 
               <div class="hero-btns" data-aos="fade-up" data-aos-delay="300">
-                <a href="#about" class="btn btn-primary">{{ $t('hero.saibaMais') }}</a>
+                <RouterLink :to="{ path: '/', hash: '#about' }" class="btn btn-primary">{{ $t('hero.saibaMais') }}</RouterLink>
               </div>
             </div>
           </div>
