@@ -83,15 +83,26 @@ Com a API funcionando, abra `http://localhost:3000/api/team` no navegador. Se us
 - Se o erro de cadastro contém `ENOENT` e `uploads`, crie a pasta como no passo 3.
 - Se contém `Unexpected field`, a API aceita a foto no campo de formulário `foto`; informe o erro para conferir a integração do painel antes de alterar o código.
 
-Para encerrar, pressione **Ctrl+C** em cada janela que iniciou. O painel e o backend não foram alterados por esta integração. As mudanças estão em uma branch separada e não publicam automaticamente o site em produção.
+Para encerrar, pressione **Ctrl+C** em cada janela que iniciou. Os formulários do painel foram preservados. Para textos em inglês, os dois ajustes de leitura da API estão descritos ao final deste guia. As mudanças estão em uma branch separada e não publicam automaticamente o site em produção.
 
 ## Verificações opcionais
 
 Na janela de comandos do site, antes de iniciar ou após parar o servidor:
 
 ```bat
-node --test tests/api.test.js
+node --test
 npm.cmd run build
 ```
 
-O primeiro comando executa três testes. O segundo compila o site, mas não o publica. A compilação pode mostrar um aviso já existente sobre `dotted-world-1.webp`.
+O primeiro comando executa sete testes. O segundo compila o site, mas não o publica. A compilação pode mostrar um aviso já existente sobre `dotted-world-1.webp`.
+
+
+## Testar os campos em inglês
+
+A integração usa as colunas `_ingles` do seu novo modelo SQL. Os textos precisam já estar preenchidos no banco: o seletor não cria traduções automaticamente nem adiciona campos no painel.
+
+1. Baixe a API da branch https://github.com/LevyMatos0/painel-andora/tree/codex/integracao-idiomas-site (Code → Download ZIP) e extraia em outra pasta.
+2. Na sua API atual, preserve `.env`, `uploads` e os outros arquivos. Copie somente `andora-back/src/services/site.service.js` e `andora-back/src/services/faq.service.js` do ZIP para as mesmas pastas da sua API, substituindo esses dois arquivos.
+3. Reinicie a API com Ctrl+C e `node src/server.js`. Os dois arquivos apenas expõem os campos em inglês nas consultas públicas e preservam os campos antigos.
+4. Com traduções já cadastradas no seu banco, abra o site e clique em EN. Destaque, sobre, serviços, cargo/apresentação da equipe e FAQ devem trocar de idioma. Clique em PT para retornar. Um campo sem tradução mantém o texto original.
+5. Veja os nomes dos campos em `INTEGRACAO.md`. Não reimporte o modelo SQL sobre seus dados.

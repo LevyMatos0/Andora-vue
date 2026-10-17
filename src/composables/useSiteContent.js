@@ -1,5 +1,7 @@
-import { reactive, readonly } from 'vue'
+import { computed, reactive, readonly } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { activeItems, apiRequest } from '../services/api'
+import { localizePublicContent } from '../services/localizedContent'
 
 // null means no successful response yet; [] means the panel published no items.
 const state = reactive({ site: null, servicos: null, equipe: null, faqs: null })
@@ -33,5 +35,12 @@ export function refreshSiteContent() {
 }
 
 export function useSiteContent() {
-  return readonly(state)
+  const { locale } = useI18n({ useScope: 'global' })
+  const localized = computed(() => localizePublicContent(state, locale.value))
+  return readonly(reactive({
+    site: computed(() => localized.value.site),
+    servicos: computed(() => localized.value.servicos),
+    equipe: computed(() => localized.value.equipe),
+    faqs: computed(() => localized.value.faqs),
+  }))
 }

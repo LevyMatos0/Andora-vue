@@ -1,6 +1,6 @@
 # Conteúdo do painel no site
 
-O site consome a API existente, sem alterações no painel ou no backend.
+O site consome a API existente e preserva os formulários do painel. Para o conteúdo bilíngue, duas consultas de leitura da API também expõem as traduções; os detalhes estão ao final deste documento.
 
 | Conteúdo cadastrado | Consulta pública | Campos exibidos |
 | --- | --- | --- |
@@ -12,7 +12,7 @@ O site consome a API existente, sem alterações no painel ou no backend.
 | FAQ | `GET /api/faqs?ativos=true` | pergunta e resposta; somente ativos, por ordem |
 | Mensagens do formulário | `POST /api/mensagens` | nome, email, assunto e conteúdo, com status inicial `nova` |
 
-Os dados são buscados ao abrir o site e ao voltar para sua aba/janela. Após cadastrar no painel, volte à aba do site ou recarregue a página. Os textos do banco são exibidos como cadastrados, sem tradução automática; os rótulos e botões mantêm português/inglês. Textos são renderizados como texto, não HTML. URLs de imagens relativas apontam para `/uploads/` no backend. Use uma URL de incorporação no campo mapa, não o HTML de um iframe.
+Os dados são buscados ao abrir o site e ao voltar para sua aba/janela. Após cadastrar no painel, volte à aba do site ou recarregue a página. O seletor global do vue-i18n alterna os textos do banco entre os campos originais e os campos `_ingles`; quando uma tradução está ausente, nula ou em branco, o texto original é mantido. Não há tradução automática. Os rótulos e botões também mantêm português/inglês. Textos são renderizados como texto, não HTML. URLs de imagens relativas apontam para `/uploads/` no backend. Use uma URL de incorporação no campo mapa, não o HTML de um iframe.
 
 Quando a API ainda não respondeu ou está indisponível na primeira carga, o site mantém o conteúdo original. Uma coleção retornada vazia, inclusive após desativar todos os registros, permanece vazia. Falhas em uma seção não impedem a carga das demais; uma atualização malsucedida preserva o último conteúdo recebido. Falhas do formulário são mostradas sem apagar os campos preenchidos.
 
@@ -47,3 +47,30 @@ npm run build
 O workflow de deploy lê a variável de repositório `VITE_API_BASE_URL` do GitHub Actions. Em GitHub Pages, configure-a com a URL HTTPS pública do backend antes do build. Sem a variável, produção usa a origem do próprio site, o que exige um backend atendendo `/api` e `/uploads` nessa origem. GitHub Pages sozinho não executa a API Node nem o MySQL. O CORS do backend deve permitir a origem do site (o backend atual já inclui `https://levymatos0.github.io`).
 
 A implantação existente não foi executada. O banco de teste criado na nuvem é independente do banco no computador do usuário.
+
+
+## Textos do banco e vue-i18n
+
+O formato segue o SQL `gemini-code-1792112788487.sql` enviado pelo usuário. Ao escolher EN, o site usa as traduções já cadastradas; ao retornar a PT, restaura o texto original. A mudança é reativa, sem recarregar a página, refazer consultas ou modificar a resposta da API. Nomes próprios, fotos, links, email e telefone são preservados. O modelo não contém tradução de endereço: contato permanece como cadastrado.
+
+| Seção | Campos em inglês na resposta da API |
+| --- | --- |
+| `/api/site` → `hero` | `titulo_ingles`, `descricao_ingles` |
+| `/api/site` → `sobre` | `titulo_ingles`, `texto_ingles` |
+| `/api/servicos` | `srv_titulo_ingles`, `srv_descricao_ingles`, `srv_informacoes_ingles` |
+| `/api/team` | `tms_cargo_ingles`, `tms_apresentacao_ingles` |
+| `/api/faqs` | `pergunta_ingles`, `resposta_ingles` |
+
+A API normaliza `her_titulo_ingles` para `hero.titulo_ingles`, `abt_texto_ingles` para `sobre.texto_ingles` e os campos `faq_*_ingles` para os aliases acima. Serviços e equipe preservam os nomes do banco.
+
+A versão anterior da API omitia as traduções de destaque, sobre e FAQ. Para essas seções funcionarem, atualize somente `andora-back/src/services/site.service.js` e `andora-back/src/services/faq.service.js` com a versão da branch `codex/integracao-idiomas-site` em https://github.com/LevyMatos0/painel-andora. Reinicie a API após copiar os dois arquivos. Preserve `.env`, `uploads` e os demais arquivos do seu projeto. As respostas em português mantêm os mesmos campos; bancos antigos sem colunas `_ingles` continuam funcionando.
+
+Esta etapa integra a leitura dos textos. Ela não adiciona campos nem gravações nos formulários do painel. As traduções precisam estar preenchidas nas colunas `_ingles` do banco existente. `tb_user` é administrativo; os membros públicos do site continuam vindo de `tb_team`.
+
+Não reimporte o SQL em um banco com dados: ele contém `DROP TABLE`. A validação do novo SQL foi feita em uma instância MySQL temporária, separada do banco de desenvolvimento.
+
+Para executar todos os sete testes unitários do site:
+
+```sh
+node --test
+```
