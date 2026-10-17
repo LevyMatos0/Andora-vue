@@ -103,6 +103,6 @@ A integração usa as colunas `_ingles` do seu novo modelo SQL. Os textos precis
 
 1. Baixe a API da branch https://github.com/LevyMatos0/painel-andora/tree/codex/integracao-idiomas-site (Code → Download ZIP) e extraia em outra pasta.
 2. Na sua API atual, preserve `.env`, `uploads` e os outros arquivos. Copie somente `andora-back/src/services/site.service.js` e `andora-back/src/services/faq.service.js` do ZIP para as mesmas pastas da sua API, substituindo esses dois arquivos.
-3. Reinicie a API com Ctrl+C e `node src/server.js`. Os dois arquivos apenas expõem os campos em inglês nas consultas públicas e preservam os campos antigos.
+3. Reinicie a API com Ctrl+C e `node src/server.js`. Os dois arquivos leem os campos em inglês nas consultas públicas e também os gravam no Hero, About e FAQ quando enviados pelo formulário; os campos antigos são preservados.
 4. Com traduções já cadastradas no seu banco, abra o site e clique em EN. Destaque, sobre, serviços, cargo/apresentação da equipe e FAQ devem trocar de idioma. Clique em PT para retornar. Um campo sem tradução mantém o texto original.
 5. Veja os nomes dos campos em `INTEGRACAO.md`. Não reimporte o modelo SQL sobre seus dados.

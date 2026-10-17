@@ -65,7 +65,7 @@ A API normaliza `her_titulo_ingles` para `hero.titulo_ingles`, `abt_texto_ingles
 
 A versão anterior da API omitia as traduções de destaque, sobre e FAQ. Para essas seções funcionarem, atualize somente `andora-back/src/services/site.service.js` e `andora-back/src/services/faq.service.js` com a versão da branch `codex/integracao-idiomas-site` em https://github.com/LevyMatos0/painel-andora. Reinicie a API após copiar os dois arquivos. Preserve `.env`, `uploads` e os demais arquivos do seu projeto. As respostas em português mantêm os mesmos campos; bancos antigos sem colunas `_ingles` continuam funcionando.
 
-Esta etapa integra a leitura dos textos. Ela não adiciona campos nem gravações nos formulários do painel. As traduções precisam estar preenchidas nas colunas `_ingles` do banco existente. `tb_user` é administrativo; os membros públicos do site continuam vindo de `tb_team`.
+A API integra a leitura dos textos e a gravação de Hero, About e FAQ. Os formulários do painel não foram alterados: eles devem enviar `titulo_ingles` e `descricao_ingles` no Hero, `titulo_ingles` e `texto_ingles` no About, e `pergunta_ingles` e `resposta_ingles` no FAQ. Campos ingleses omitidos em uma edição preservam as traduções existentes. Veja `andora-back/INTEGRACAO-IDIOMAS.md` na branch da API para os formatos e a atualização dos dois arquivos. `tb_user` é administrativo; os membros públicos do site continuam vindo de `tb_team`.
 
 Não reimporte o SQL em um banco com dados: ele contém `DROP TABLE`. A validação do novo SQL foi feita em uma instância MySQL temporária, separada do banco de desenvolvimento.
 
