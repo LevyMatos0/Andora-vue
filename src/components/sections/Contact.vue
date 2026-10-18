@@ -136,7 +136,7 @@ async function sendMessage() {
   sent.value = false
   failed.value = false
   try {
-    await apiRequest('mensagens', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) })
+    await apiRequest('mensagens', { signal: AbortSignal.timeout(30000), method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) })
     sent.value = true
     for (const key of Object.keys(form)) form[key] = ''
   } catch {

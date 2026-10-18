@@ -4,7 +4,7 @@ import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), 'VITE_')
-  const target = (process.env.VITE_API_BASE_URL || env.VITE_API_BASE_URL || 'http://localhost:3000').replace(/\/+$/, '')
+  const target = (process.env.VITE_API_BASE_URL || process.env.VITE_API_URL || env.VITE_API_BASE_URL || env.VITE_API_URL || 'http://localhost:3000').replace(/\/+$/, '').replace(/\/api$/, '')
 
   return {
     base: './',
