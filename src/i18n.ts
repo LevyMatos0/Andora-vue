@@ -4,6 +4,9 @@ const messages = {
   pt: {
     nav: {
       inicio: 'Início',
+      menu: 'Navegação principal',
+      abrirMenu: 'Abrir menu',
+      fecharMenu: 'Fechar menu',
       sobre: 'Sobre',
       servicos: 'Serviços',
       projetos: 'Projetos',
@@ -103,7 +106,7 @@ const messages = {
       endereco: 'Av. Brasil Norte 2000, Americana, SP',
       telefone: 'Telefone/WhatsApp',
       email: 'Email',
-      emailEndereco: 'contato.andoradev@gmail.com',
+      emailEndereco: "contato.andoradev{'@'}gmail.com",
       telefoneNumero: '+55 (19) 97815-2812',
       horario: 'Horário de funcionamento',
       horarioDetalhes: 'Segunda-Sexta: 8:30 - 17:00',
@@ -119,6 +122,7 @@ const messages = {
       mensagemPlaceholder: 'Sua mensagem',
       carregando: 'Carregando',
       mensagemEnviada: 'Sua mensagem foi enviada, agradecemos!',
+      erroEnvio: 'Não foi possível enviar sua mensagem. Tente novamente.',
       enviarBotao: 'Enviar mensagem',
     },
     footer: {
@@ -139,6 +143,9 @@ const messages = {
   en: {
     nav: {
       inicio: 'Home',
+      menu: 'Main navigation',
+      abrirMenu: 'Open menu',
+      fecharMenu: 'Close menu',
       sobre: 'About',
       servicos: 'Services',
       projetos: 'Projects',
@@ -238,7 +245,7 @@ const messages = {
       endereco: 'Av. Brasil Norte 2000, Americana, SP',
       telefone: 'Phone/WhatsApp',
       email: 'Email',
-      emailEndereco: 'contato.andoradev@gmail.com',
+      emailEndereco: "contato.andoradev{'@'}gmail.com",
       telefoneNumero: '+55 (19) 97815-2812',
       horario: 'Business hours',
       horarioDetalhes: 'Monday - Friday: 8:30 AM - 5:00 PM',
@@ -254,6 +261,7 @@ const messages = {
       mensagemPlaceholder: 'Your message',
       carregando: 'Loading',
       mensagemEnviada: 'Your message has been sent, thank you!',
+      erroEnvio: 'Your message could not be sent. Please try again.',
       enviarBotao: 'Send message',
     },
     footer: {
