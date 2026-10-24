@@ -2,6 +2,11 @@ import { createI18n } from 'vue-i18n'
 
 const messages = {
   pt: {
+    theme: {
+      darkMode: 'Modo escuro',
+      activateLight: 'Ativar modo claro',
+      activateDark: 'Ativar modo escuro',
+    },
     nav: {
       inicio: 'Início',
       menu: 'Navegação principal',
@@ -141,6 +146,11 @@ const messages = {
     },
   },
   en: {
+    theme: {
+      darkMode: 'Dark mode',
+      activateLight: 'Switch to light mode',
+      activateDark: 'Switch to dark mode',
+    },
     nav: {
       inicio: 'Home',
       menu: 'Main navigation',
