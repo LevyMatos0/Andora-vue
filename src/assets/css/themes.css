@@ -1,0 +1,231 @@
+/* Andora palette and semantic colors. The theme changes presentation only. */
+:root {
+  --brand-yellow: #FFC209;
+  --brand-brown: #371D10;
+  --brand-white: #F0F4F5;
+  --brand-blue: #2E4566;
+  --brand-navy: #061930;
+
+  --page-bg: var(--brand-navy);
+  --page-text: var(--brand-white);
+  --page-heading: var(--brand-white);
+  --page-surface: color-mix(in srgb, var(--brand-navy), var(--brand-blue) 30%);
+  --section-bg: color-mix(in srgb, var(--brand-navy), var(--brand-blue) 18%);
+  --theme-accent: var(--brand-yellow);
+  --on-accent: var(--brand-navy);
+  --service-idle-bg: var(--brand-white);
+  --service-idle-text: var(--brand-navy);
+  --service-active-bg: var(--brand-yellow);
+  --service-active-text: var(--brand-navy);
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --page-bg: var(--brand-white);
+  --page-text: var(--brand-blue);
+  --page-heading: var(--brand-navy);
+  --page-surface: #FFFFFF;
+  --section-bg: color-mix(in srgb, var(--brand-white), var(--brand-blue) 5%);
+  --theme-accent: var(--brand-blue);
+  --on-accent: var(--brand-white);
+  --service-idle-bg: var(--brand-yellow);
+  --service-active-bg: var(--brand-blue);
+  --service-active-text: var(--brand-white);
+  color-scheme: light;
+}
+
+:root {
+  --background-color: var(--page-bg);
+  --default-color: var(--page-text);
+  --heading-color: var(--page-heading);
+  --surface-color: var(--page-surface);
+  --accent-color: var(--theme-accent);
+  --contrast-color: var(--on-accent);
+  --nav-color: var(--page-text);
+  --nav-hover-color: var(--theme-accent);
+  --nav-mobile-background-color: var(--page-surface);
+  --nav-dropdown-background-color: var(--page-surface);
+  --nav-dropdown-color: var(--page-text);
+  --nav-dropdown-hover-color: var(--theme-accent);
+  --bs-body-bg: var(--page-bg);
+  --bs-body-color: var(--page-text);
+  --bs-secondary-color: var(--page-text);
+}
+
+.light-background,
+.dark-background {
+  --background-color: var(--section-bg);
+  --surface-color: var(--page-surface);
+  --default-color: var(--page-text);
+  --heading-color: var(--page-heading);
+  --contrast-color: var(--on-accent);
+}
+
+body { color: var(--page-text); background-color: var(--page-bg); }
+a { color: var(--theme-accent); }
+a:hover { color: var(--theme-accent); }
+
+.header { --background-color: var(--page-bg); transition: box-shadow 180ms ease; }
+.scrolled .header { --background-color: color-mix(in srgb, var(--page-bg), transparent 8%); }
+:root[data-theme="light"] .header .logo img { filter: brightness(0); }
+.header-controls { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.header-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px 10px;
+  color: var(--page-text);
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--page-text), transparent 65%);
+  border-radius: 12px;
+  font-size: 1rem;
+  line-height: 1;
+}
+.header-control:hover {
+  color: var(--page-heading);
+  background: color-mix(in srgb, var(--theme-accent), transparent 90%);
+  border-color: var(--theme-accent);
+}
+.header-control i { font-size: 1.15rem; }
+.header .navmenu a.active {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+}
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 3px solid var(--theme-accent);
+  outline-offset: 4px;
+}
+
+/* Brand buttons keep dark text on yellow in either theme. */
+.hero .hero-content .hero-btns .btn-primary,
+.contact .form-container .btn-submit {
+  background: var(--brand-yellow);
+  border-color: var(--brand-yellow);
+  color: var(--brand-brown);
+}
+.hero .hero-content .hero-btns .btn-primary:hover,
+.contact .form-container .btn-submit:hover {
+  background: var(--brand-blue);
+  border-color: var(--brand-blue);
+  color: var(--brand-white);
+}
+
+/* Service cards: yellow -> blue in light mode; white -> yellow in dark mode. */
+.services .services-container .service-item {
+  --service-bg: var(--service-idle-bg);
+  --service-text: var(--service-idle-text);
+  background-color: var(--service-bg);
+  transition: transform 250ms ease, box-shadow 250ms ease;
+  color: var(--service-text);
+  border: 1px solid color-mix(in srgb, var(--brand-navy), transparent 88%);
+}
+.services .services-container .service-item .service-title,
+.services .services-container .service-item .service-text,
+.services .services-container .service-item .service-link,
+.services .services-container .service-item:hover .service-link {
+  color: var(--service-text);
+}
+.services .services-container .service-item .service-icon,
+.services .services-container .service-item:hover .service-icon {
+  transition: none;
+  color: var(--service-text);
+  background-color: color-mix(in srgb, var(--service-text), transparent 93%);
+}
+.services .services-container .service-item .service-icon img {
+  background: var(--brand-white);
+  border-radius: 10px;
+  padding: 6px;
+}
+.services .services-container .service-item:focus-within {
+  --service-bg: var(--service-active-bg);
+  --service-text: var(--service-active-text);
+}
+@media (hover: hover) {
+  .services .services-container .service-item:hover {
+    --service-bg: var(--service-active-bg);
+    --service-text: var(--service-active-text);
+  }
+}
+.services .cta-wrapper .cta-box { background: var(--brand-yellow); }
+.services .cta-wrapper .cta-box .cta-content,
+.services .cta-wrapper .cta-box .cta-content h3,
+.services .cta-wrapper .cta-box .cta-content p { color: var(--brand-navy); }
+.services .cta-wrapper .cta-box .cta-content .primary-btn {
+  background: var(--brand-navy);
+  color: var(--brand-white);
+}
+.services .cta-wrapper .cta-box .cta-content .primary-btn:hover {
+  background: var(--brand-blue);
+  color: var(--brand-white);
+}
+
+/* Contact information and form surfaces follow the same selected theme. */
+.contact .contact-info-panel {
+  background-color: var(--page-surface);
+  color: var(--page-text);
+  border: 1px solid color-mix(in srgb, var(--page-text), transparent 88%);
+}
+.contact .contact-info-panel .contact-info-header h3,
+.contact .info-card .card-content h4,
+.contact .social-links-panel h5,
+.contact .social-links-panel .social-icons a { color: var(--page-heading); }
+.contact .info-card {
+  background: color-mix(in srgb, var(--theme-accent), transparent 94%);
+  border: 1px solid color-mix(in srgb, var(--page-text), transparent 88%);
+}
+.contact .info-card:hover { background: color-mix(in srgb, var(--theme-accent), transparent 88%); }
+.contact .info-card .icon-container,
+.contact .social-links-panel .social-icons a {
+  background: color-mix(in srgb, var(--theme-accent), transparent 88%);
+}
+.contact .info-card .icon-container i { color: var(--theme-accent); }
+.contact .social-links-panel .social-icons a:hover {
+  background: var(--theme-accent);
+  color: var(--on-accent);
+}
+.contact .form-container {
+  border: 1px solid color-mix(in srgb, var(--page-text), transparent 88%);
+}
+.contact .form-container .form-floating label { color: var(--page-text); }
+.contact .form-container .form-floating .form-control:focus { border-color: var(--theme-accent); }
+.team .social-icons a { color: var(--brand-white); }
+.team .social-icons a:hover { background: var(--brand-yellow); color: var(--brand-navy); }
+.team .team-member:hover .member-info h4 { color: var(--theme-accent); }
+
+@media (min-width: 1200px) {
+  .header .logo,
+  .header .navmenu,
+  .header .header-controls,
+  .header .header-social-links { order: 0; }
+}
+@media (max-width: 575px) {
+  .header > .container { gap: 8px !important; }
+  .header-controls { gap: 6px; }
+  .header-control { padding: 8px; }
+  .header .mobile-nav-toggle { margin-right: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body,
+  .header,
+  .header-control,
+  .services .services-container .service-item { transition: none; }
+}
+
+.services .services-container .service-item .service-link { transition: none; }
+
+.services .services-container .service-item .service-link:focus-visible { outline-color: var(--service-text); }
+
+.about .content .cta-buttons .btn-get-started {
+  background-color: var(--brand-blue);
+  color: var(--brand-white);
+}
+.about .content .cta-buttons .btn-get-started:hover {
+  background-color: var(--theme-accent);
+  color: var(--on-accent);
+}

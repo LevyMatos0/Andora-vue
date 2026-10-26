@@ -18,10 +18,15 @@
         </button>
       </nav>
 
-      <button class="language-toggle btn btn-outline-light btn-sm d-flex align-items-center gap-1" :title="$t('langButton.tooltip')" @click="toggleLocale">
-        <i class="bi bi-globe2" aria-hidden="true"></i>
-        <span>{{ $t('langButton.label') }}</span>
-      </button>
+      <div class="header-controls">
+        <button class="theme-toggle header-control" type="button" :aria-label="$t('theme.darkMode')" :aria-pressed="isDark" :title="isDark ? $t('theme.activateLight') : $t('theme.activateDark')" @click="toggleTheme">
+          <i class="bi" :class="isDark ? 'bi-sun' : 'bi-moon-stars'" aria-hidden="true"></i>
+        </button>
+        <button class="language-toggle header-control" type="button" :title="$t('langButton.tooltip')" @click="toggleLocale">
+          <i class="bi bi-globe2" aria-hidden="true"></i>
+          <span>{{ $t('langButton.label') }}</span>
+        </button>
+      </div>
 
       <div class="header-social-links d-none d-sm-flex">
         <a href="https://www.instagram.com/andora.desenvolvimento/" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
@@ -35,8 +40,10 @@
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { useTheme } from '../../composables/useTheme'
 
 const { locale } = useI18n()
+const { isDark, toggleTheme } = useTheme()
 const route = useRoute()
 const menuOpen = ref(false)
 const menuButton = ref(null)
@@ -91,7 +98,7 @@ onUnmounted(() => {
 .mobile-nav-toggle { background: none; border: 0; padding: 8px; min-width: 44px; min-height: 44px; }
 .mobile-nav-toggle:focus-visible { outline: 2px solid var(--accent-color); outline-offset: 3px; }
 @media (max-width: 1199px) {
-  .language-toggle { order: 2; margin-left: auto; }
+  .header-controls { order: 2; }
   .header-social-links { order: 2; }
 }
 @media (max-width: 575px) { .header .logo img { max-width: 135px; max-height: 48px; } }
